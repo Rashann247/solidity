@@ -8,6 +8,7 @@ Language Features:
 
 Compiler Features:
  * Code Generator: More efficient overflow checks for multiplication.
+ * Language Server: Analyze all files in a project by default (can be customized by setting ``'file-load-strategy'`` to ``'directly-opened-and-on-import'`` in LSP settings object).
 
 
 Bugfixes:
