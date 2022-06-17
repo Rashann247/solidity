@@ -1,4 +1,4 @@
-{"errors":[{"component":"general","errorCode":"3546","formattedMessage":"ParserError: Expected type name
+{"errors":[{"component":"general","errorCode":"3546","formattedMessage":"Error: Expected type name
  --> A:2:58:
   |
 2 | pragma solidity >=0.0; contract Errort6 { using foo for  ; /* missing type name */ }
