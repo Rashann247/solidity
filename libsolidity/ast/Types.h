@@ -27,6 +27,7 @@
 #include <libsolidity/ast/ASTForward.h>
 #include <libsolidity/parsing/Token.h>
 #include <liblangutil/Exceptions.h>
+#include <liblangutil/ErrorReporter.h>
 
 #include <libsolutil/Common.h>
 #include <libsolutil/Numeric.h>

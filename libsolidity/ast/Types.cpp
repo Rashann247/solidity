@@ -28,6 +28,9 @@
 
 #include <libsolidity/analysis/ConstantEvaluator.h>
 
+#include <liblangutil/ErrorReporter.h>
+#include <liblangutil/SourceLocation.h>
+
 #include <libsolutil/Algorithms.h>
 #include <libsolutil/CommonData.h>
 #include <libsolutil/CommonIO.h>
@@ -3667,6 +3670,7 @@ FunctionTypePointer FunctionType::asExternallyCallableFunction(bool _inLibrary) 
 	TypePointers parameterTypes;
 	for (auto const& t: m_parameterTypes)
 		if (TypeProvider::isReferenceWithLocation(t, DataLocation::CallData))
+			// TODO :: Add warning/error here
 			parameterTypes.push_back(
 				TypeProvider::withLocationIfReference(DataLocation::Memory, t, true)
 			);
