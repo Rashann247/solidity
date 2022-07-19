@@ -351,7 +351,7 @@ void ExpressionEvaluator::evaluateArgs(
 		if (!_literalArguments || !_literalArguments->at(_expr.size() - i - 1))
 			visit(expr);
 		else
-			m_values = {0};
+			m_values = {u256(std::get<Literal>(expr).value.str())};
 		values.push_back(value());
 		++i;
 	}
