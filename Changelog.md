@@ -8,6 +8,7 @@ Language Features:
 
 Compiler Features:
  * Code Generator: More efficient overflow checks for multiplication.
+ * Code Generator: Use unchecked arithmetic for the increment in specific for loops.
 
 
 Bugfixes:
