@@ -24,6 +24,8 @@
 #include <libyul/ASTForward.h>
 #include <libyul/optimiser/ASTWalker.h>
 
+#include <libevmasm/Instruction.h>
+
 #include <libsolutil/FixedHash.h>
 #include <libsolutil/CommonData.h>
 
@@ -44,6 +46,10 @@ class InterpreterTerminatedGeneric: public util::Exception
 };
 
 class ExplicitlyTerminated: public InterpreterTerminatedGeneric
+{
+};
+
+class ExplicitlyTerminatedWithReturn: public ExplicitlyTerminated
 {
 };
 
@@ -165,6 +171,7 @@ public:
 	void operator()(Leave const&) override;
 	void operator()(Block const& _block) override;
 
+	bytes returnData() const { return m_state.returndata; }
 	std::vector<std::string> const& trace() const { return m_state.trace; }
 
 	u256 valueOfVariable(YulString _name) const { return m_variables.at(_name); }
@@ -220,6 +227,27 @@ public:
 	std::vector<u256> values() const { return m_values; }
 
 private:
+	void runExternalCall(evmasm::Instruction _instruction);
+	virtual std::shared_ptr<Interpreter> makeInterpreterCopy(std::map<YulString, u256> _variables = {}) const
+	{
+		return std::make_shared<Interpreter>(
+			m_state,
+			m_dialect,
+			m_scope,
+			m_disableMemoryTrace,
+			std::move(_variables)
+		);
+	}
+	virtual std::shared_ptr<Interpreter> makeInterpreterNew(InterpreterState& _state, Scope& _scope) const
+	{
+		return std::make_shared<Interpreter>(
+			_state,
+			m_dialect,
+			_scope,
+			m_disableMemoryTrace
+		);
+	}
+
 	void setValue(u256 _value);
 
 	/// Evaluates the given expression from right to left and
