@@ -176,11 +176,11 @@ public:
 
 	u256 valueOfVariable(YulString _name) const { return m_variables.at(_name); }
 
-private:
+protected:
 	/// Asserts that the expression evaluates to exactly one value and returns it.
-	u256 evaluate(Expression const& _expression);
+	virtual u256 evaluate(Expression const& _expression);
 	/// Evaluates the expression and returns its value.
-	std::vector<u256> evaluateMulti(Expression const& _expression);
+	virtual std::vector<u256> evaluateMulti(Expression const& _expression);
 
 	void enterScope(Block const& _block);
 	void leaveScope();
@@ -226,7 +226,7 @@ public:
 	/// Returns the list of values of the expression.
 	std::vector<u256> values() const { return m_values; }
 
-private:
+protected:
 	void runExternalCall(evmasm::Instruction _instruction);
 	virtual std::shared_ptr<Interpreter> makeInterpreterCopy(std::map<YulString, u256> _variables = {}) const
 	{
