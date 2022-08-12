@@ -8,6 +8,7 @@ Language Features:
 
 Compiler Features:
  * Code Generator: More efficient overflow checks for multiplication.
+ * Yul Optimizer: Allow replacing the previously hard-coded cleanup sequence by specifying custom steps after a colon delimiter (`:`) in the sequence string.
 
 
 Bugfixes:
